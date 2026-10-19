@@ -1,0 +1,172 @@
+{
+  "frames/btn": {
+    "left": 31,
+    "top": 17,
+    "right": 32,
+    "bottom": 21,
+    "size": [
+      99,
+      44
+    ]
+  },
+  "frames/btn_pressed": {
+    "left": 31,
+    "top": 17,
+    "right": 32,
+    "bottom": 21,
+    "size": [
+      99,
+      44
+    ]
+  },
+  "frames/btn_flat": {
+    "left": 31,
+    "top": 17,
+    "right": 32,
+    "bottom": 21,
+    "size": [
+      99,
+      44
+    ]
+  },
+  "frames/btn_sm": {
+    "left": 20,
+    "top": 11,
+    "right": 20,
+    "bottom": 14,
+    "size": [
+      74,
+      33
+    ]
+  },
+  "frames/btn_sm_pressed": {
+    "left": 20,
+    "top": 11,
+    "right": 20,
+    "bottom": 14,
+    "size": [
+      74,
+      33
+    ]
+  },
+  "frames/btn_sm_flat": {
+    "left": 20,
+    "top": 11,
+    "right": 20,
+    "bottom": 14,
+    "size": [
+      74,
+      33
+    ]
+  },
+  "frames/card": {
+    "left": 21,
+    "top": 23,
+    "right": 30,
+    "bottom": 27,
+    "size": [
+      125,
+      126
+    ]
+  },
+  "frames/card_flat": {
+    "left": 21,
+    "top": 23,
+    "right": 25,
+    "bottom": 21,
+    "size": [
+      120,
+      120
+    ]
+  },
+  "frames/modal": {
+    "left": 25,
+    "top": 27,
+    "right": 37,
+    "bottom": 35,
+    "size": [
+      208,
+      170
+    ]
+  },
+  "frames/box": {
+    "left": 12,
+    "top": 14,
+    "right": 14,
+    "bottom": 12,
+    "size": [
+      48,
+      48
+    ]
+  },
+  "frames/inset": {
+    "left": 12,
+    "top": 14,
+    "right": 14,
+    "bottom": 12,
+    "size": [
+      48,
+      48
+    ]
+  },
+  "frames/toast": {
+    "left": 14,
+    "top": 16,
+    "right": 19,
+    "bottom": 18,
+    "size": [
+      63,
+      48
+    ]
+  },
+  "frames/bubble": {
+    "left": 13,
+    "top": 12,
+    "right": 13,
+    "bottom": 12,
+    "size": [
+      30,
+      24
+    ]
+  },
+  "frames/stamp": {
+    "left": 9,
+    "top": 10,
+    "right": 10,
+    "bottom": 9,
+    "size": [
+      40,
+      28
+    ]
+  },
+  "frames/tag": {
+    "left": 8,
+    "top": 8,
+    "right": 8,
+    "bottom": 8,
+    "size": [
+      32,
+      22
+    ]
+  },
+  "frames/tab": {
+    "left": 19,
+    "top": 19,
+    "right": 4,
+    "bottom": 15,
+    "size": [
+      64,
+      48
+    ]
+  },
+  "frames/sticky": {
+    "left": 10,
+    "top": 10,
+    "right": 10,
+    "bottom": 26,
+    "size": [
+      128,
+      136
+    ]
+  }
+}

@@ -1,0 +1,892 @@
+/* =====================================================================================
+   STAKEHOLDERS: "the founder's notebook" theme
+   Warm paper, ink outlines, marker fills, one handwritten typeface (Coming Soon).
+
+   UiRoot loads this sheet after Game.uss. Game.uss keeps the layout; this sheet re-skins
+   its classes and adds a few notebook pieces (stickies, stamps, tags, highlighter).
+
+   Art: Notebook/ (rendered at 2x by Tools/NotebookArt/build.mjs). Every sprite is drawn
+   at half size with -unity-slice-scale: 0.5px, so slice margins below are in texture
+   pixels (Tools/NotebookArt/slices.json lists them in UI pixels). Frames are white so
+   -unity-background-image-tint-color picks the fill; their ink outline stays dark.
+   ===================================================================================== */
+
+:root {
+    /* paper and ink */
+    --paper: #F5EEDF;
+    --paper-deep: #EBE1CC;
+    --card-paper: #FFFCF5;
+    --rule: #D8CBB3;
+    --grid: #E7DDC9;
+    --ink: #2B2622;
+    --ink-2: #5E554C;
+    --ink-3: #72675B;
+
+    /* text inks: 4.5:1 or better on paper and card */
+    --ink-good: #23704A;
+    --ink-bad: #B3361E;
+    --ink-warn: #9A5200;
+    --ink-info: #2F5DA8;
+    --ink-secret: #6B3FA0;
+    --ink-gold: #8A5E00;
+
+    /* marker fills: never text, ink sits on top */
+    --marker-yellow: #FFD84D;
+    --marker-green: #5CBF7F;
+    --marker-tomato: #F07A5F;
+    --marker-blue: #7FB0FF;
+    --marker-lilac: #B89AF0;
+    --marker-orange: #FFB25B;
+
+    /* sticky notes and light tints */
+    --sticky-yellow: #FFE58A;
+    --sticky-pink: #FFC9D6;
+    --sticky-blue: #CFE3FF;
+    --sticky-green: #D4EFC0;
+    --sticky-orange: #FFD6A8;
+    --sticky-lilac: #E4D6FF;
+    --tint-yellow: #FFF3C4;
+    --tint-red: #FDE6DF;
+    --tint-green: #E3F3E6;
+    --tint-lilac: #EFE6FF;
+    --tint-blue: #E4EEFF;
+    --tint-orange: #FFE9D2;
+
+    /* noir: everything private */
+    --noir: #221B2E;
+    --noir-card: #2E2540;
+    --noir-text: #F3EAD8;
+    --noir-dim: #CFC3DA;
+
+    /* Game.uss tokens, remapped to paper */
+    --bg: #F5EEDF;
+    --panel: #EBE1CC;
+    --card: #FFFCF5;
+    --card2: #F5EEDF;
+    --card3: #EBE1CC;
+    --line: #D8CBB3;
+    --text: #2B2622;
+    --dim: #5E554C;
+    --faint: #72675B;
+    --accent: #2F5DA8;
+    --accent-hi: #2F5DA8;
+    --good: #23704A;
+    --warn: #9A5200;
+    --bad: #B3361E;
+    --secret: #6B3FA0;
+    --gold: #8A5E00;
+
+    color: #2B2622;
+    font-size: 15px;
+    -unity-font-definition: url("Notebook/Fonts/ComingSoon-Regular.ttf");
+}
+
+/* ------------------------------------------------------------------ type */
+.unity-text-element, .unity-label, .unity-button, .unity-base-text-field__input {
+    -unity-font-definition: url("Notebook/Fonts/ComingSoon-Regular.ttf");
+}
+Label { color: #2B2622; }
+.h0 { font-size: 64px; -unity-font-style: normal; letter-spacing: 1px; }
+.h1 { font-size: 30px; -unity-font-style: normal; }
+.h2 { font-size: 21px; -unity-font-style: normal; }
+.h3 { font-size: 13px; -unity-font-style: normal; color: #5E554C; letter-spacing: 1.5px; }
+.small { font-size: 13.5px; }
+.tiny { font-size: 13px; }
+.card .h1 { font-size: 24px; }
+.big { font-size: 23px; -unity-font-style: normal; }
+.huge { font-size: 34px; -unity-font-style: normal; }
+.dim { color: #5E554C; }
+.faint { color: #72675B; }
+.good { color: #23704A; }
+.bad { color: #B3361E; }
+.warn { color: #9A5200; }
+.accent { color: #2F5DA8; }
+.secret { color: #6B3FA0; }
+.gold { color: #8A5E00; }
+
+/* ------------------------------------------------------------------ paper */
+.app, .menu-bg {
+    background-color: #F5EEDF;
+    background-image: url("Notebook/tiles/paper_grid.png");
+    background-repeat: repeat;
+    background-size: 224px 224px;
+}
+.divider {
+    height: 2px;
+    margin: 10px 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/tiles/dash.png");
+    background-repeat: repeat-x;
+    background-size: 12px 2px;
+}
+
+/* ------------------------------------------------------------------ cards */
+/* card.png carries a soft 5x6 shadow, so right/bottom padding is 5-6px larger */
+.card, .kpi, .event-card, .menu-panel, .setup-panel {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/card.png");
+    -unity-background-image-tint-color: #FFFCF5;
+    -unity-slice-left: 42;
+    -unity-slice-top: 46;
+    -unity-slice-right: 60;
+    -unity-slice-bottom: 54;
+    -unity-slice-scale: 0.5px;
+    border-width: 0;
+    border-radius: 0;
+}
+.card { padding: 16px 21px 20px 18px; margin: 0 8px 10px 0; }
+.card-title { font-size: 13.5px; -unity-font-style: normal; color: #5E554C; letter-spacing: 1.5px; margin-bottom: 10px; }
+.card-danger { -unity-background-image-tint-color: #FDE6DF; }
+.card-good { -unity-background-image-tint-color: #E3F3E6; }
+.card-flat, .skill, .up-card {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/card_flat.png");
+    -unity-background-image-tint-color: #FFFCF5;
+    -unity-slice-left: 42;
+    -unity-slice-top: 46;
+    -unity-slice-right: 50;
+    -unity-slice-bottom: 42;
+    -unity-slice-scale: 0.5px;
+    border-width: 0;
+    border-radius: 0;
+}
+.inset, .seat-row {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/inset.png");
+    -unity-background-image-tint-color: #F5EEDF;
+    -unity-slice-left: 24;
+    -unity-slice-top: 28;
+    -unity-slice-right: 28;
+    -unity-slice-bottom: 24;
+    -unity-slice-scale: 0.5px;
+    border-width: 0;
+    border-radius: 0;
+    padding: 10px 12px;
+}
+.seat-row { -unity-background-image-tint-color: #FFFCF5; padding: 8px 12px; margin-bottom: 8px; }
+
+/* secret things are written on lilac letter paper (on the Private page they sit on a dark desk) */
+.card-secret { -unity-background-image-tint-color: #F1EAFF; }
+.card-secret .card-title { color: #6B3FA0; }
+.card-secret .inset { -unity-background-image-tint-color: #FBF8FF; }
+
+/* ------------------------------------------------------------------ buttons: stickers with a hard ink shadow */
+.unity-button.btn {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/btn.png");
+    -unity-background-image-tint-color: #FFD84D;
+    -unity-slice-left: 62;
+    -unity-slice-top: 34;
+    -unity-slice-right: 64;
+    -unity-slice-bottom: 42;
+    -unity-slice-scale: 0.5px;
+    border-width: 0;
+    border-radius: 0;
+    color: #2B2622;
+    -unity-font-style: normal;
+    font-size: 16px;
+    min-height: 44px;
+    padding: 8px 19px 12px 16px;
+    margin: 0 6px 0 0;
+    transition-property: -unity-background-image-tint-color;
+    transition-duration: 0.1s;
+    scale: 1 1;
+}
+.unity-button.btn:hover { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: #FFE27A; }
+.unity-button.btn:active { background-image: url("Notebook/frames/btn_pressed.png"); padding: 11px 17px 9px 18px; scale: 1 1; }
+.unity-button.btn:disabled { background-image: url("Notebook/frames/btn_flat.png"); opacity: 0.45; }
+.unity-button.btn-ghost { background-color: rgba(0, 0, 0, 0); color: #2B2622; -unity-background-image-tint-color: #FFFCF5; }
+.unity-button.btn-ghost:hover { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: #FFF3C4; }
+.unity-button.btn-good { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: #5CBF7F; }
+.unity-button.btn-good:hover { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: #74CC92; }
+.unity-button.btn-bad { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: #F07A5F; }
+.unity-button.btn-bad:hover { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: #F39480; }
+.unity-button.btn-warn { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: #FFB25B; }
+.unity-button.btn-warn:hover { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: #FFC27E; }
+.unity-button.btn-secret { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: #B89AF0; }
+.unity-button.btn-secret:hover { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: #C8AFF4; }
+.unity-button.btn-on { background-color: rgba(0, 0, 0, 0); color: #2B2622; -unity-background-image-tint-color: #FFD84D; }
+.unity-button.btn-sm {
+    background-image: url("Notebook/frames/btn_sm.png");
+    -unity-slice-left: 40;
+    -unity-slice-top: 22;
+    -unity-slice-right: 40;
+    -unity-slice-bottom: 28;
+    min-height: 33px;
+    padding: 4px 13px 7px 11px;
+    font-size: 14px;
+    border-radius: 0;
+}
+.unity-button.btn-sm:active { background-image: url("Notebook/frames/btn_sm_pressed.png"); padding: 6px 12px 5px 12px; }
+.unity-button.btn-sm:disabled { background-image: url("Notebook/frames/btn_sm_flat.png"); }
+.unity-button.btn-lg { min-height: 56px; padding: 10px 25px 14px 22px; font-size: 20px; border-radius: 0; }
+.unity-button.btn-lg:active { padding: 13px 23px 11px 24px; }
+.unity-button.btn-block { margin: 0 0 10px 0; }
+
+/* segmented choice: a box with a highlighter block on the chosen option */
+.seg {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/box.png");
+    -unity-background-image-tint-color: #FFFCF5;
+    -unity-slice-left: 24;
+    -unity-slice-top: 28;
+    -unity-slice-right: 28;
+    -unity-slice-bottom: 24;
+    -unity-slice-scale: 0.5px;
+    border-radius: 0;
+    padding: 3px;
+}
+.unity-button.seg-btn {
+    background-color: rgba(0, 0, 0, 0);
+    color: #5E554C;
+    border-width: 0;
+    border-radius: 6px;
+    margin: 0;
+    padding: 4px 12px;
+    min-height: 30px;
+    font-size: 14px;
+    -unity-font-style: normal;
+}
+.unity-button.seg-btn:hover { color: #2B2622; background-color: #FFF3C4; }
+.unity-button.seg-btn.on { background-color: #FFD84D; color: #2B2622; }
+
+/* ------------------------------------------------------------------ inputs */
+.unity-text-field > .unity-base-text-field__input,
+.unity-base-text-field__input {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/box.png");
+    -unity-background-image-tint-color: #FFFCF5;
+    -unity-slice-left: 24;
+    -unity-slice-top: 28;
+    -unity-slice-right: 28;
+    -unity-slice-bottom: 24;
+    -unity-slice-scale: 0.5px;
+    border-width: 0;
+    border-radius: 0;
+    color: #2B2622;
+    padding: 6px 12px;
+    min-height: 38px;
+    font-size: 16px;
+    --unity-cursor-color: #2B2622;
+    --unity-selection-color: #FFE58A;
+}
+.unity-base-text-field:focus > .unity-base-text-field__input { -unity-background-image-tint-color: #FFF3C4; border-width: 0; }
+.unity-base-text-field__input > TextElement { color: #2B2622; }
+
+/* select: a box with a doodled chevron (added by Select in Ui.cs) */
+.unity-button.select {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/box.png");
+    -unity-background-image-tint-color: #FFFCF5;
+    -unity-slice-left: 24;
+    -unity-slice-top: 28;
+    -unity-slice-right: 28;
+    -unity-slice-bottom: 24;
+    -unity-slice-scale: 0.5px;
+    color: #2B2622;
+    border-width: 0;
+    border-radius: 0;
+    padding: 6px 32px 6px 12px;
+    min-height: 38px;
+    font-size: 15px;
+}
+.unity-button.select:hover { background-color: rgba(0, 0, 0, 0); border-width: 0; -unity-background-image-tint-color: #FFF3C4; }
+.select-chevron {
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+    background-image: url("Notebook/icons/chevron_down.png");
+    -unity-background-image-tint-color: #2B2622;
+    -unity-background-scale-mode: scale-to-fit;
+}
+.select-menu {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/card.png");
+    -unity-background-image-tint-color: #FFFCF5;
+    -unity-slice-left: 42;
+    -unity-slice-top: 46;
+    -unity-slice-right: 60;
+    -unity-slice-bottom: 54;
+    -unity-slice-scale: 0.5px;
+    border-width: 0;
+    border-radius: 0;
+    padding: 6px 11px 12px 6px;
+}
+.unity-button.select-item {
+    background-color: rgba(0, 0, 0, 0);
+    color: #2B2622;
+    border-radius: 6px;
+    padding: 5px 10px;
+    min-height: 30px;
+    font-size: 15px;
+    -unity-font-style: normal;
+}
+.unity-button.select-item:hover { background-color: #FFF3C4; }
+.unity-button.select-item.on { color: #2F5DA8; -unity-font-style: normal; }
+
+/* scrollbars: a pencil-shaded thumb */
+.unity-scroller--vertical { width: 10px; }
+.unity-scroller--horizontal { height: 10px; }
+.unity-scroller .unity-base-slider__dragger { background-color: #C9B99C; border-width: 0; border-radius: 5px; }
+.unity-scroller .unity-base-slider__dragger:hover { background-color: #B8A98E; }
+
+/* ------------------------------------------------------------------ top bar */
+.topbar {
+    height: 72px;
+    background-color: #EBE1CC;
+    border-bottom-width: 2.5px;
+    border-color: #2B2622;
+    padding: 0 16px 0 18px;
+}
+.brand { font-size: 21px; -unity-font-style: normal; }
+.brand-sub { font-size: 12.5px; color: #5E554C; }
+.top-kpi { margin-left: 18px; padding-left: 14px; border-left-width: 2px; border-color: #D1C2A5; }
+.top-kpi-label { font-size: 12px; color: #5E554C; -unity-font-style: normal; letter-spacing: 1px; }
+.top-kpi-value { font-size: 21px; -unity-font-style: normal; }
+.clock {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/box.png");
+    -unity-background-image-tint-color: #FFFCF5;
+    -unity-slice-left: 24;
+    -unity-slice-top: 28;
+    -unity-slice-right: 28;
+    -unity-slice-bottom: 24;
+    -unity-slice-scale: 0.5px;
+    border-radius: 0;
+    padding: 6px 12px;
+}
+.clock-date { font-size: 17px; -unity-font-style: normal; }
+
+/* ------------------------------------------------------------------ nav: notebook divider tabs */
+.nav {
+    width: 214px;
+    background-color: #EBE1CC;
+    border-right-width: 2.5px;
+    border-color: #2B2622;
+    padding: 10px 0 10px 8px;
+}
+.unity-button.nav-btn {
+    background-color: rgba(0, 0, 0, 0);
+    color: #2B2622;
+    border-width: 0;
+    border-radius: 10px;
+    margin: 0 8px 2px 0;
+    padding: 0 10px;
+    height: 44px;
+    font-size: 16.5px;
+    -unity-font-style: normal;
+}
+.unity-button.nav-btn:hover { background-color: rgba(255, 252, 245, 0.6); color: #2B2622; }
+/* the open tab reaches over the rail's ink edge and merges with the page */
+.unity-button.nav-btn.active {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/tab.png");
+    -unity-background-image-tint-color: #F5EEDF;
+    -unity-slice-left: 38;
+    -unity-slice-top: 38;
+    -unity-slice-right: 8;
+    -unity-slice-bottom: 30;
+    -unity-slice-scale: 0.5px;
+    border-width: 0;
+    border-radius: 0;
+    margin-right: -3px;
+    padding-right: 21px;
+}
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: #2B2622;
+    -unity-background-scale-mode: scale-to-fit;
+}
+.nav-label { color: #2B2622; -unity-font-style: normal; }
+.nav-btn.active .nav-label, .nav-btn:hover .nav-label { color: #2B2622; }
+.nav-badge {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/bubble.png");
+    -unity-background-image-tint-color: #F07A5F;
+    -unity-slice-left: 26;
+    -unity-slice-top: 24;
+    -unity-slice-right: 26;
+    -unity-slice-bottom: 24;
+    -unity-slice-scale: 0.5px;
+    border-radius: 0;
+    min-width: 26px;
+    height: 24px;
+    padding: 0 7px;
+    font-size: 13px;
+    -unity-font-style: normal;
+    color: #2B2622;
+}
+.nav-badge.secret { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: #5A3591; color: #F3EAD8; }
+.nav-badge.info { background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: #7FB0FF; color: #2B2622; }
+.nav-section { font-size: 12.5px; color: #5E554C; -unity-font-style: normal; letter-spacing: 1.5px; margin: 14px 0 6px 12px; }
+
+.icon-dashboard { background-image: url("Notebook/icons/dashboard.png"); }
+.icon-situations { background-image: url("Notebook/icons/situations.png"); }
+.icon-products { background-image: url("Notebook/icons/products.png"); }
+.icon-market { background-image: url("Notebook/icons/market.png"); }
+.icon-suppliers { background-image: url("Notebook/icons/suppliers.png"); }
+.icon-marketing { background-image: url("Notebook/icons/marketing.png"); }
+.icon-operations { background-image: url("Notebook/icons/operations.png"); }
+.icon-finance { background-image: url("Notebook/icons/finance.png"); }
+.icon-growth { background-image: url("Notebook/icons/growth.png"); }
+.icon-competition { background-image: url("Notebook/icons/competition.png"); }
+.icon-partners { background-image: url("Notebook/icons/partners.png"); }
+.icon-board { background-image: url("Notebook/icons/board.png"); }
+.icon-career { background-image: url("Notebook/icons/career.png"); }
+.icon-private { background-image: url("Notebook/icons/private.png"); }
+
+/* the Private tab is written in secret ink, and turns noir when open */
+.nav-private .nav-label { color: #6B3FA0; }
+.nav-private .nav-icon { -unity-background-image-tint-color: #6B3FA0; }
+.unity-button.nav-btn.nav-private.active { -unity-background-image-tint-color: #221B2E; }
+.nav-private.active .nav-label { color: #F3EAD8; }
+.nav-private.active .nav-icon { -unity-background-image-tint-color: #F3EAD8; }
+
+/* ------------------------------------------------------------------ pages */
+.page-head { padding: 18px 24px 8px 26px; }
+.page-head .h1 {
+    font-size: 32px;
+    padding-bottom: 12px;
+    background-image: url("Notebook/tiles/squiggle.png");
+    background-repeat: no-repeat;
+    background-size: 150px 12px;
+    background-position-x: left;
+    background-position-y: bottom;
+}
+.page-body { padding: 6px 12px 24px 26px; }
+
+/* the Private page is an after-hours desk; its letters (cards) stay light */
+.page-private { background-color: #221B2E; }
+.page-private .page-head Label { color: #F3EAD8; }
+.page-private .page-head .dim, .page-private .page-head .small { color: #CFC3DA; }
+.page-private .unity-scroller .unity-base-slider__dragger { background-color: #5A4C70; }
+
+/* ------------------------------------------------------------------ side panel: a spiral notepad */
+.side { width: 330px; background-color: #FFFCF5; border-left-width: 2.5px; border-color: #2B2622; }
+.side-tabs { padding: 12px 12px 8px 12px; }
+.feed-item {
+    padding: 8px 14px 9px 14px;
+    border-bottom-width: 0;
+    background-image: url("Notebook/tiles/dash.png");
+    background-repeat: repeat-x;
+    background-size: 12px 2px;
+    background-position-y: bottom;
+}
+.feed-day { font-size: 12px; color: #72675B; }
+.feed-text { font-size: 14px; color: #2B2622; }
+.feed-scandal { background-color: #FDE6DF; }
+.feed-scandal .feed-text { color: #2B2622; }
+.feed-board { background-color: #EFE6FF; }
+.feed-board .feed-text { color: #2B2622; }
+.chat-msg { padding: 6px 14px; }
+.chat-dm { background-color: rgba(0, 0, 0, 0); }
+.chat-name { font-size: 13px; -unity-font-style: normal; }
+.chat-text {
+    font-size: 14.5px;
+    color: #2B2622;
+    margin-top: 3px;
+    padding: 7px 12px 9px 11px;
+    background-image: url("Notebook/frames/box.png");
+    -unity-background-image-tint-color: #FFFFFF;
+    -unity-slice-left: 24;
+    -unity-slice-top: 28;
+    -unity-slice-right: 28;
+    -unity-slice-bottom: 24;
+    -unity-slice-scale: 0.5px;
+}
+.chat-dm .chat-text { -unity-background-image-tint-color: #EFE6FF; }
+.chat-input-row { padding: 10px; border-top-width: 0; background-color: #F5EEDF; }
+
+/* ------------------------------------------------------------------ KPIs */
+.kpi { padding: 12px 21px 17px 16px; margin: 0 8px 10px 0; min-width: 160px; }
+.kpi-label { font-size: 12.5px; color: #5E554C; -unity-font-style: normal; letter-spacing: 1.5px; }
+.kpi-value { font-size: 30px; -unity-font-style: normal; margin-top: 2px; }
+.kpi-sub { font-size: 13px; color: #5E554C; }
+
+/* ------------------------------------------------------------------ tables: ruled notebook rows */
+.tr {
+    min-height: 42px;
+    padding: 5px 10px;
+    border-bottom-width: 0;
+    background-image: url("Notebook/tiles/dash.png");
+    background-repeat: repeat-x;
+    background-size: 12px 2px;
+    background-position-y: bottom;
+}
+.tr:hover { background-color: rgba(255, 216, 77, 0.16); }
+.tr-head { min-height: 32px; background-image: none; border-bottom-width: 2.5px; border-color: #2B2622; }
+.tr-head Label { font-size: 12.5px; color: #5E554C; -unity-font-style: normal; letter-spacing: 1px; }
+.tr-flag { background-color: #FDE6DF; }
+.tr-sel { background-color: #FFF3C4; }
+.tr-us { background-color: #FFF3C4; }
+
+/* ------------------------------------------------------------------ badges, chips, bars, avatars */
+.badge, .chip, .stage-chip, .tag {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/tag.png");
+    -unity-background-image-tint-color: #EBE1CC;
+    -unity-slice-left: 16;
+    -unity-slice-top: 16;
+    -unity-slice-right: 16;
+    -unity-slice-bottom: 16;
+    -unity-slice-scale: 0.5px;
+    border-radius: 0;
+    color: #2B2622;
+    font-size: 12.5px;
+    -unity-font-style: normal;
+    padding: 2px 9px 3px 9px;
+}
+.badge { margin-right: 6px; }
+.badge-accent { -unity-background-image-tint-color: #7FB0FF; color: #2B2622; }
+.badge-good { -unity-background-image-tint-color: #5CBF7F; color: #2B2622; }
+.badge-warn { -unity-background-image-tint-color: #FFB25B; color: #2B2622; }
+.badge-bad { -unity-background-image-tint-color: #F07A5F; color: #2B2622; }
+.badge-secret { -unity-background-image-tint-color: #B89AF0; color: #2B2622; }
+.badge-gold { -unity-background-image-tint-color: #FFD84D; color: #2B2622; }
+.chip { -unity-background-image-tint-color: #F5EEDF; color: #5E554C; margin: 0 5px 5px 0; }
+
+.bar { height: 12px; background-color: #FFFCF5; border-width: 1.5px; border-color: #2B2622; border-radius: 5px; }
+.bar-fill {
+    background-color: #7FB0FF;
+    background-image: url("Notebook/tiles/hatch.png");
+    background-repeat: repeat;
+    background-size: 16px 16px;
+    border-radius: 0;
+    border-right-width: 1.5px;
+    border-color: #2B2622;
+}
+.bar-thin { height: 9px; }
+
+/* avatars: a tinted head (Ui.Avatar sets the player's color) with a face per personality */
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/avatars/head.png");
+    -unity-background-scale-mode: scale-to-fit;
+}
+.avatar Label { font-size: 12px; -unity-font-style: normal; color: #2B2622; }
+.avatar-sm { width: 24px; height: 24px; border-radius: 0; }
+.avatar-lg { width: 60px; height: 60px; border-radius: 0; }
+.avatar-face { position: absolute; left: 0; top: 0; right: 0; bottom: 0; -unity-background-scale-mode: scale-to-fit; }
+.face-you { background-image: url("Notebook/avatars/face_you.png"); }
+.face-greedy { background-image: url("Notebook/avatars/face_greedy.png"); }
+.face-loyal { background-image: url("Notebook/avatars/face_loyal.png"); }
+.face-risktaker { background-image: url("Notebook/avatars/face_risktaker.png"); }
+.face-conservative { background-image: url("Notebook/avatars/face_conservative.png"); }
+.face-workaholic { background-image: url("Notebook/avatars/face_workaholic.png"); }
+.face-lazy { background-image: url("Notebook/avatars/face_lazy.png"); }
+.face-manipulative { background-image: url("Notebook/avatars/face_manipulative.png"); }
+.face-ambitious { background-image: url("Notebook/avatars/face_ambitious.png"); }
+.face-employee { background-image: url("Notebook/avatars/face_employee.png"); }
+.dot { width: 10px; height: 10px; border-radius: 5px; border-width: 1.5px; border-color: #2B2622; }
+
+/* ------------------------------------------------------------------ situations: case files and tear-off tickets */
+.event-card { margin: 0 8px 12px 0; }
+.event-stripe { display: none; }
+.event-main { padding: 14px 22px 18px 18px; }
+.event-title { font-size: 19px; -unity-font-style: normal; }
+.event-text { color: #5E554C; font-size: 15px; margin-top: 4px; }
+.choice {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/box.png");
+    -unity-background-image-tint-color: #FFFCF5;
+    -unity-slice-left: 24;
+    -unity-slice-top: 28;
+    -unity-slice-right: 28;
+    -unity-slice-bottom: 24;
+    -unity-slice-scale: 0.5px;
+    border-width: 0;
+    border-radius: 0;
+    padding: 9px 12px 10px 12px;
+    margin: 8px 8px 0 0;
+}
+.choice:hover { background-color: rgba(0, 0, 0, 0); border-width: 0; -unity-background-image-tint-color: #FFF3C4; }
+.choice-label { -unity-font-style: normal; font-size: 15.5px; }
+.choice-detail { font-size: 13px; color: #5E554C; }
+.choice-cost {
+    font-size: 13px;
+    color: #8A5E00;
+    -unity-font-style: normal;
+    margin-top: 6px;
+    padding-top: 6px;
+    background-image: url("Notebook/tiles/dash.png");
+    background-repeat: repeat-x;
+    background-size: 12px 2px;
+    background-position-y: top;
+}
+.choice-locked { opacity: 0.45; }
+
+/* ------------------------------------------------------------------ skills */
+.skill { padding: 12px 14px 14px 12px; margin-bottom: 10px; }
+.skill-name { -unity-font-style: normal; font-size: 16px; }
+.skill-desc { font-size: 13px; color: #5E554C; }
+.skill-learned { -unity-background-image-tint-color: #E3F3E6; }
+.skill-available { -unity-background-image-tint-color: #FFF3C4; }
+.skill-locked { -unity-background-image-tint-color: #EBE1CC; opacity: 0.65; }
+
+/* ------------------------------------------------------------------ growth */
+.stage-chip { -unity-background-image-tint-color: #EBE1CC; color: #5E554C; padding: 3px 10px 4px 10px; margin: 0 6px 6px 0; }
+.stage-done { -unity-background-image-tint-color: #FFE58A; color: #2B2622; }
+.stage-current { -unity-background-image-tint-color: #FFD84D; color: #2B2622; }
+.strategy-on { -unity-background-image-tint-color: #E3F3E6; }
+.up-card { padding: 12px 14px 14px 12px; margin-bottom: 10px; }
+.up-owned { -unity-background-image-tint-color: #E3F3E6; }
+.up-building { -unity-background-image-tint-color: #FFF3C4; }
+.up-available { -unity-background-image-tint-color: #FFFCF5; }
+.up-locked { -unity-background-image-tint-color: #EBE1CC; opacity: 0.6; }
+.next-step {
+    padding: 8px 0;
+    border-bottom-width: 0;
+    background-image: url("Notebook/tiles/dash.png");
+    background-repeat: repeat-x;
+    background-size: 12px 2px;
+    background-position-y: bottom;
+}
+/* a secret ambition is written on lilac letter paper */
+.ambition-box { -unity-background-image-tint-color: #F1EAFF; }
+.unity-button.role-chip {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/tag.png");
+    -unity-background-image-tint-color: #F5EEDF;
+    -unity-slice-left: 16;
+    -unity-slice-top: 16;
+    -unity-slice-right: 16;
+    -unity-slice-bottom: 16;
+    -unity-slice-scale: 0.5px;
+    color: #5E554C;
+    border-width: 0;
+    border-radius: 0;
+    margin: 0 5px 5px 0;
+    padding: 3px 10px 4px 10px;
+    min-height: 26px;
+    font-size: 12.5px;
+    -unity-font-style: normal;
+}
+.unity-button.role-chip:hover { background-color: rgba(0, 0, 0, 0); border-width: 0; color: #2B2622; -unity-background-image-tint-color: #FFF3C4; }
+.unity-button.role-chip.on { background-color: rgba(0, 0, 0, 0); color: #2B2622; -unity-background-image-tint-color: #7FB0FF; }
+.ach-medal { width: 20px; height: 20px; border-radius: 10px; border-width: 1.5px; border-color: #2B2622; }
+
+/* ------------------------------------------------------------------ celebrations: a starburst behind the headline */
+.celebrate { -unity-background-image-tint-color: #FFF3C4; border-width: 0; }
+.celebrate .modal-body {
+    padding: 44px 28px 26px 28px;
+    background-image: url("Notebook/fx/burst.png");
+    background-repeat: no-repeat;
+    background-size: 200px 160px;
+    background-position-x: center;
+    background-position-y: top;
+}
+.celebrate-kicker { color: #8A5E00; font-size: 13px; letter-spacing: 3px; -unity-font-style: normal; }
+.celebrate-title { color: #2B2622; font-size: 36px; -unity-font-style: normal; }
+.celebrate-sub { color: #5E554C; font-size: 16px; }
+
+/* ------------------------------------------------------------------ dialogs */
+.modal-overlay { background-color: rgba(43, 38, 34, 0.45); }
+.modal {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/modal.png");
+    -unity-background-image-tint-color: #FFFCF5;
+    -unity-slice-left: 50;
+    -unity-slice-top: 54;
+    -unity-slice-right: 74;
+    -unity-slice-bottom: 70;
+    -unity-slice-scale: 0.5px;
+    border-width: 0;
+    border-radius: 0;
+    padding: 0 8px 10px 0;
+}
+.modal-head { padding: 18px 20px 10px 22px; }
+.modal-head .h2 { font-size: 24px; }
+.modal-body { padding: 4px 20px 10px 22px; }
+.modal-foot { padding: 10px 20px 18px 22px; }
+.field { margin-bottom: 14px; }
+.field-label { font-size: 12.5px; color: #5E554C; -unity-font-style: normal; letter-spacing: 1.5px; margin-bottom: 5px; }
+/* negotiation transcript on lined paper */
+.transcript {
+    background-color: #FFFCF5;
+    background-image: url("Notebook/tiles/ruled.png");
+    background-repeat: repeat;
+    background-size: 8px 26px;
+    border-width: 2px;
+    border-color: #2B2622;
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+.transcript Label { font-size: 15px; }
+
+/* ------------------------------------------------------------------ toasts */
+.toast-layer { width: 340px; right: 14px; bottom: 14px; }
+.toast {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/toast.png");
+    -unity-background-image-tint-color: #FFFCF5;
+    -unity-slice-left: 28;
+    -unity-slice-top: 32;
+    -unity-slice-right: 38;
+    -unity-slice-bottom: 36;
+    -unity-slice-scale: 0.5px;
+    border-left-width: 0;
+    border-radius: 0;
+    padding: 10px 17px 14px 14px;
+    margin-top: 8px;
+}
+.toast Label { font-size: 14.5px; color: #2B2622; }
+.toast-good { -unity-background-image-tint-color: #E3F3E6; }
+.toast-warn { -unity-background-image-tint-color: #FFE9D2; }
+.toast-bad { -unity-background-image-tint-color: #FDE6DF; }
+.toast-secret { -unity-background-image-tint-color: #2E2540; background-color: rgba(0, 0, 0, 0); }
+.toast-secret Label { color: #F3EAD8; }
+.toast-xp { -unity-background-image-tint-color: #FFF3C4; }
+
+/* ------------------------------------------------------------------ banners are sticky notes */
+.banner {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("Notebook/frames/sticky.png");
+    -unity-background-image-tint-color: #CFE3FF;
+    -unity-slice-left: 20;
+    -unity-slice-top: 20;
+    -unity-slice-right: 20;
+    -unity-slice-bottom: 52;
+    -unity-slice-scale: 0.5px;
+    border-width: 0;
+    border-radius: 0;
+    padding: 14px 18px 24px 18px;
+    margin: 0 10px 14px 0;
+}
+.banner-meeting { -unity-background-image-tint-color: #E4D6FF; }
+.banner.card-danger { -unity-background-image-tint-color: #FFC9D6; }
+
+/* ------------------------------------------------------------------ menus */
+.menu-panel { padding: 28px 34px 34px 28px; }
+.setup-panel { padding: 24px 30px 30px 24px; }
+.tagline { color: #5E554C; font-size: 18px; }
+.menu-panel .h0 {
+    font-size: 56px;
+    background-image: url("Notebook/tiles/highlight.png");
+    background-repeat: no-repeat;
+    background-size: 100% 44%;
+    background-position-y: bottom;
+}
+
+/* ------------------------------------------------------------------ notebook pieces for new UI
+   .sticky (+ -yellow/-pink/-blue/-green/-orange/-lilac), .stamp (+ -bad/-good/-secret),
+   .tape, .highlight, .icon (+ -sm/-lg), .noir, .ruled. */
+.sticky {
+    background-image: url("Notebook/frames/sticky.png");
+    -unity-background-image-tint-color: #FFE58A;
+    -unity-slice-left: 20;
+    -unity-slice-top: 20;
+    -unity-slice-right: 20;
+    -unity-slice-bottom: 52;
+    -unity-slice-scale: 0.5px;
+    padding: 16px 16px 26px 16px;
+    rotate: -1.5deg;
+}
+.sticky-yellow { -unity-background-image-tint-color: #FFE58A; }
+.sticky-pink { -unity-background-image-tint-color: #FFC9D6; }
+.sticky-blue { -unity-background-image-tint-color: #CFE3FF; }
+.sticky-green { -unity-background-image-tint-color: #D4EFC0; }
+.sticky-orange { -unity-background-image-tint-color: #FFD6A8; }
+.sticky-lilac { -unity-background-image-tint-color: #E4D6FF; }
+.stamp {
+    background-image: url("Notebook/frames/stamp.png");
+    -unity-background-image-tint-color: #B3361E;
+    -unity-slice-left: 18;
+    -unity-slice-top: 20;
+    -unity-slice-right: 20;
+    -unity-slice-bottom: 18;
+    -unity-slice-scale: 0.5px;
+    color: #B3361E;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    padding: 3px 10px 3px 10px;
+    rotate: -4deg;
+    align-self: flex-start;
+}
+.stamp-good { -unity-background-image-tint-color: #23704A; color: #23704A; }
+.stamp-secret { -unity-background-image-tint-color: #6B3FA0; color: #6B3FA0; }
+.stamp-bad { -unity-background-image-tint-color: #B3361E; color: #B3361E; }
+.tape {
+    position: absolute;
+    width: 80px;
+    height: 24px;
+    background-image: url("Notebook/fx/tape.png");
+    rotate: -3deg;
+}
+.highlight {
+    background-image: url("Notebook/tiles/highlight.png");
+    background-repeat: no-repeat;
+    background-size: 100% 46%;
+    background-position-y: bottom;
+}
+.icon { width: 24px; height: 24px; -unity-background-image-tint-color: #2B2622; -unity-background-scale-mode: scale-to-fit; flex-shrink: 0; }
+.icon-sm { width: 18px; height: 18px; }
+.icon-lg { width: 32px; height: 32px; }
+.noir { background-color: #221B2E; }
+.noir Label { color: #F3EAD8; }
+.noir .dim, .noir .faint { color: #CFC3DA; }
+.ruled {
+    background-color: #FFFCF5;
+    background-image: url("Notebook/tiles/ruled.png");
+    background-repeat: repeat;
+    background-size: 8px 26px;
+}
+
+/* ------------------------------------------------------------------ dashboard HQ drawing (HqScene.cs) */
+.hq-head { margin-bottom: 2px; }
+.hq-scene {
+    height: 250px;
+    flex-shrink: 0;
+    overflow: hidden;
+    padding: 0;
+}
+.hq-canvas { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+.hq-float { position: absolute; left: 0; top: 0; }
+.hq-parcel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #D8B27A;
+    border-width: 1.5px;
+    border-color: #2B2622;
+    border-radius: 2px;
+}
+.hq-note {
+    position: absolute;
+    font-size: 13px;
+    color: #5E554C;
+    white-space: nowrap;
+}
+.hq-note.bad { color: #B3361E; }
+.hq-caption {
+    position: absolute;
+    font-size: 12.5px;
+    color: #72675B;
+    -unity-text-align: upper-center;
+    white-space: nowrap;
+}
+.hq-sign {
+    position: absolute;
+    color: #2B2622;
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.hq-sticky {
+    position: absolute;
+    width: 210px;
+    font-size: 13px;
+    color: #2B2622;
+    white-space: normal;
+    rotate: 2deg;
+}
+.hq-price { position: absolute; margin: 0; }
